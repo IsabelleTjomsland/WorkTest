@@ -1,0 +1,91 @@
+is_global = true
+build_property.EnableAotAnalyzer = 
+build_property.EnableSingleFileAnalyzer = 
+build_property.EnableTrimAnalyzer = false
+build_property.IncludeAllContentForSelfExtract = 
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = false
+build_property.InvariantGlobalization = false
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = browser
+build_property._SupportedPlatformList = browser
+build_property.RootNamespace = frontend
+build_property.RootNamespace = frontend
+build_property.ProjectDir = C:\Worktest\frontend\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = false
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Worktest\frontend
+build_property._RazorSourceGeneratorDebug = 
+
+[C:/Worktest/frontend/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/DeviceComponents/CreateDevice.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2aWNlQ29tcG9uZW50c1xDcmVhdGVEZXZpY2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/DeviceComponents/DeleteDevice.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2aWNlQ29tcG9uZW50c1xEZWxldGVEZXZpY2UucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/DeviceComponents/DeviceDetails.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2aWNlQ29tcG9uZW50c1xEZXZpY2VEZXRhaWxzLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/DeviceComponents/EditDevice.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2aWNlQ29tcG9uZW50c1xFZGl0RGV2aWNlLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/DevicesManagement.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRGV2aWNlc01hbmFnZW1lbnQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSG9tZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/Logout.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9nb3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/ModbusCommunication.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kYnVzQ29tbXVuaWNhdGlvbi5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/ModbusCommunicationComponents/EditModbusDevice.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kYnVzQ29tbXVuaWNhdGlvbkNvbXBvbmVudHNcRWRpdE1vZGJ1c0RldmljZS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Worktest/frontend/Layout/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE1haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-u2zsuelyp6
+
+[C:/Worktest/frontend/Layout/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = TGF5b3V0XE5hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-2rjwgzqnxx

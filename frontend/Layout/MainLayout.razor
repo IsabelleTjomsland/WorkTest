@@ -1,0 +1,50 @@
+﻿@inherits LayoutComponentBase
+<div class="page">
+    <div class="sidebar">
+        <NavMenu />
+    </div>
+
+    <main>
+        <div class="top-row px-4 d-flex justify-content-end">
+            <div class="auth-buttons">
+                <a href="/login" class="login-link">Login</a>
+                <a href="/register" class="btn register-btn">Register</a>
+            </div>
+        </div>
+
+        <article class="content px-4">
+            @Body
+        </article>
+    </main>
+</div>
+
+<style>
+    .login-link {
+        text-decoration: none;
+        color: #007bff; /* Normal link color */
+        margin-right: 10px;
+    }
+
+    .login-link:hover {
+        color: #0056b3; /* Slightly darker blue on hover */
+    }
+
+    .register-btn {
+        background-color: #004085; /* Dark blue */
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .register-btn:hover {
+        background-color: #002752; /* Darker blue on hover */
+        color: white; /* Ensure text remains white on hover */
+        text-decoration:none !important;
+    }
+
+    .register-btn:active {
+        background-color: #001a3a !important; /* Even darker blue when clicked */
+    }
+</style>

@@ -1,0 +1,270 @@
+﻿@page "/"
+@inject HttpClient Http
+
+<div class="home-page">
+    <!-- Introductory Header -->
+    <header class="intro-header">
+        <h1>Home dashboard</h1>
+    </header>
+
+    <!-- Paragraph Section -->
+    <section class="paragraph-header">
+        <h2>Current device state</h2>
+    </section>
+
+    <!-- Display Active and Inactive Device Counts -->
+    <section class="device-counts">
+        <div class="device-box active">
+            <h3>Active Devices</h3>
+            <p>@activeDeviceCount</p>
+        </div>
+        <div class="device-box inactive">
+            <h3>Inactive Devices</h3>
+            <p>@inactiveDeviceCount</p>
+        </div>
+    </section>
+
+    <!-- Device Table Section -->
+    <section class="device-table">
+        <h3>All devices</h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="column" @onclick="SortById">ID 
+                        <span class="arrow">@GetArrow("Id")</span>
+                    </th>
+                    <th class="column" @onclick="SortByName">Name
+                        <span class="arrow">@GetArrow("Name")</span>
+                    </th>
+                    <th class="column">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var device in devices)
+                {
+                    <tr>
+                        <td>@device.Id</td>
+                        <td>@device.Name</td>
+                        <td>
+                            @if (device.Status)
+                            {
+                                <span class="status-circle on"></span><span> On</span>
+                            }
+                            else
+                            {
+                                <span class="status-circle off"></span>@(" Off")
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </section>
+</div>
+
+@code {
+    private int activeDeviceCount = 0;
+    private int inactiveDeviceCount = 0;
+    private List<Device> devices;
+    private string sortBy = "Id"; // Default sorting by ID
+    private string sortDirection = "asc"; // Default direction is ascending
+
+    // Fetch data on page load
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            devices = await Http.GetFromJsonAsync<List<Device>>("http://localhost:5246/api/devices");
+            
+            if (devices != null)
+            {
+                // Count devices based on their status (true = active, false = inactive)
+                activeDeviceCount = devices.Count(d => d.Status);
+                inactiveDeviceCount = devices.Count(d => !d.Status);
+                SortDevices(); // Apply initial sorting
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data: {ex.Message}");
+        }
+    }
+
+    private void SortDevices()
+    {
+        if (sortBy == "Id")
+        {
+            devices = sortDirection == "asc" ? devices.OrderBy(d => d.Id).ToList() : devices.OrderByDescending(d => d.Id).ToList();
+        }
+        else if (sortBy == "Name")
+        {
+            devices = sortDirection == "asc" ? devices.OrderBy(d => d.Name).ToList() : devices.OrderByDescending(d => d.Name).ToList();
+        }
+    }
+
+    private void SortById()
+    {
+        if (sortBy == "Id")
+        {
+            sortDirection = sortDirection == "asc" ? "desc" : "asc"; // Toggle sort direction
+        }
+        else
+        {
+            sortBy = "Id";
+            sortDirection = "asc"; // Default to ascending if sorting by ID
+        }
+        SortDevices();
+    }
+
+    private void SortByName()
+    {
+        if (sortBy == "Name")
+        {
+            sortDirection = sortDirection == "asc" ? "desc" : "asc"; // Toggle sort direction
+        }
+        else
+        {
+            sortBy = "Name";
+            sortDirection = "asc"; // Default to ascending if sorting by Name
+        }
+        SortDevices();
+    }
+
+    private string GetArrow(string column)
+    {
+        if (sortBy == column)
+        {
+            return sortDirection == "asc" ? "↑" : "↓";
+        }
+        return ""; // No arrow if not sorting by this column
+    }
+
+    public class Device
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public bool Status { get; set; }  // 'true' = On, 'false' = Off
+    }
+}
+
+<style>
+    /* Set up gradient background and styling for the device boxes */
+    .device-counts {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .device-box {
+        padding: 20px;
+        border-radius: 15px; /* Curved corners */
+        color: white;
+        text-align: center;
+        width: 45%;
+        font-size: 1.5em;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Active devices: Green gradient */
+    .device-box.active {
+        background: linear-gradient(135deg, #28a745, #1e7e34); /* Green gradient */
+    }
+
+    /* Inactive devices: Red gradient */
+    .device-box.inactive {
+        background: linear-gradient(135deg, #dc3545, #c82333); /* Red gradient */
+    }
+
+    /* For header and content styles */
+    .intro-header h1 {
+        font-size: 2em;
+        font-weight: 600;
+        background: linear-gradient(90deg, #013067, #3e85d6);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: left;
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .paragraph-header h2 {
+        font-size: 1.2rem;
+        color: #555757;
+        text-align: left;
+        margin-top: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    /* Table Styles */
+    .device-table {
+        margin-top: 4rem;
+        margin-bottom: 4rem;
+        width: 100%;
+        text-align: left;
+    }
+    .device-table h3 {
+       font-size: 1.2rem;
+        color: #555757;
+        text-align: left;
+        margin-bottom: 1rem;
+    }
+
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 1rem;
+    }
+
+    .table th, .table td {
+        padding: 10px;
+        border: 1px solid #ddd;
+        text-align: center;
+    }
+
+    .table th {
+        background-color: #f4f4f4;
+        font-weight: bold;
+    }
+
+    .table td {
+        background-color: #fff;
+    }
+
+    /* Circle styles for status */
+    .status-circle {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+    }
+
+    /* Green circle for 'On' status */
+    .status-circle.on {
+        background-color: #28a745; /* Green */
+    }
+
+    /* Red circle for 'Off' status */
+    .status-circle.off {
+        background-color: #dc3545; /* Red */
+    }
+
+    /* Style for the arrows */
+    .arrow {
+        display: inline-block;
+        font-size: 18px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #6e7db3, #1e3a5f); /* Blue gradient */
+        -webkit-background-clip: text; /* Clip the background to the text */
+        color: transparent; /* Make text transparent to show the gradient */
+        transition: transform 0.2s ease-in-out;
+    }
+
+    .arrow:hover {
+        transform: scale(1.2); /* Slightly enlarge the arrow on hover */
+    }
+</style>
+
+
+

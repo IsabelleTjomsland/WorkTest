@@ -1,0 +1,85 @@
+{
+  "Files": [
+    {
+      "Id": "C:\\Worktest\\frontend\\bin\\Debug\\net8.0\\wwwroot\\_framework\\blazor.webassembly.js",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\obj\\Debug\\net8.0\\compressed\\xh9sel2fxo.gz",
+      "PackagePath": "staticwebassets\\_framework\\blazor.webassembly.js.gz"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\obj\\Debug\\net8.0\\scopedcss\\bundle\\frontend.styles.css",
+      "PackagePath": "staticwebassets\\frontend.styles.css"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\Logo.svg",
+      "PackagePath": "staticwebassets\\Logo.svg"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\Logo\\logo.svg",
+      "PackagePath": "staticwebassets\\Logo\\logo.svg"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\closed.svg",
+      "PackagePath": "staticwebassets\\closed.svg"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\css\\app.css",
+      "PackagePath": "staticwebassets\\css\\app.css"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\css\\bootstrap\\bootstrap.min.css",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\css\\bootstrap\\bootstrap.min.css.map",
+      "PackagePath": "staticwebassets\\css\\bootstrap\\bootstrap.min.css.map"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\css\\images\\pc.svg",
+      "PackagePath": "staticwebassets\\css\\images\\pc.svg"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\data.svg",
+      "PackagePath": "staticwebassets\\data.svg"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\eye.svg",
+      "PackagePath": "staticwebassets\\eye.svg"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\index.html",
+      "PackagePath": "staticwebassets\\index.html"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\sample-data\\weather.json",
+      "PackagePath": "staticwebassets\\sample-data\\weather.json"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\videos\\Animation.mp4",
+      "PackagePath": "staticwebassets\\videos\\Animation.mp4"
+    },
+    {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\videos\\unity.mp4",
+      "PackagePath": "staticwebassets\\videos\\unity.mp4"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.frontend.props",
+      "PackagePath": "build\\frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildMultiTargeting.frontend.props",
+      "PackagePath": "buildMultiTargeting\\frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.buildTransitive.frontend.props",
+      "PackagePath": "buildTransitive\\frontend.props"
+    },
+    {
+      "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.frontend.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
