@@ -1,0 +1,11 @@
+bin/
+obj/
+*.user
+*.suo
+*.log
+*.tmp
+*.bak
+*.swp
+appsettings.Development.json
+*.env
+secrets.json
