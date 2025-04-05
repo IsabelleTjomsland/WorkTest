@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "A93C2DuR/R2y8IIBr1hyEZ1aC8rnIX4ZML2bEpFm7WU=",
+  "Hash": "5Iqg30n7wa/BzSSIRiSUdGLpnt9RsP4zsRfmcFXPIWw=",
   "Source": "frontend",
   "BasePath": "/",
   "Mode": "Root",
@@ -15538,6 +15538,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\videos\\unity.mp4"
+    },
+    {
+      "Identity": "C:\\Worktest\\frontend\\wwwroot\\waiting.mp4",
+      "SourceId": "frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Worktest\\frontend\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "waiting.mp4",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\waiting.mp4"
     }
   ]
 }

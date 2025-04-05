@@ -2,7 +2,9 @@
 @inject CustomAuthenticationStateProvider AuthProvider
 @inject NavigationManager Navigation
 
-<h3>Are you sure you want to log out?</h3>
+
+<h2>Come back soon!</h2>
+<p>Are you sure you want to logout?</p>
 
 <button class="logout-button" @onclick="HandleLogout">Log Out</button>
 <button class="cancel-button" @onclick="CancelLogout">Cancel</button>
@@ -13,17 +15,27 @@
     private async Task HandleLogout()
     {
         isLoggingOut = true;
-        await AuthProvider.MarkUserAsLoggedOut();   // Clear token & notify auth state
-        Navigation.NavigateTo("/login", true);      // Redirect to login and reload
+        await AuthProvider.MarkUserAsLoggedOut();
+        Navigation.NavigateTo("/login", true);
     }
 
     private void CancelLogout()
     {
-        Navigation.NavigateTo("/", true); // Redirect to the home page or wherever you want
+        Navigation.NavigateTo("/", true);
     }
 }
 
 <style>
+    h2 {
+        font-size: 28px;
+        margin-top: 20px;
+    }
+
+    p {
+        font-size: 18px;
+        margin-bottom: 20px;
+    }
+
     .logout-button {
         background-color: red;
         color: white;
@@ -31,7 +43,8 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 16px;
-        border-radius: 8px; /* Rounded corners */
+        border-radius: 8px;
+        margin-right: 10px;
     }
 
     .logout-button:hover {
@@ -45,7 +58,7 @@
         padding: 10px 20px;
         cursor: pointer;
         font-size: 16px;
-        border-radius: 8px; /* Rounded corners */
+        border-radius: 8px;
     }
 
     .cancel-button:hover {

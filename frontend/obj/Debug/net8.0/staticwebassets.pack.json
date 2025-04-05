@@ -69,6 +69,10 @@
       "PackagePath": "staticwebassets\\videos\\unity.mp4"
     },
     {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\waiting.mp4",
+      "PackagePath": "staticwebassets\\waiting.mp4"
+    },
+    {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.frontend.props",
       "PackagePath": "build\\frontend.props"
     },
