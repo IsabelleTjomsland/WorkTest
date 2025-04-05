@@ -1,4 +1,7 @@
 ﻿@inherits LayoutComponentBase
+
+@inject NavigationManager Navigation
+
 <div class="page">
     <div class="sidebar">
         <NavMenu />
@@ -7,8 +10,16 @@
     <main>
         <div class="top-row px-4 d-flex justify-content-end">
             <div class="auth-buttons">
-                <a href="/login" class="login-link">Login</a>
-                <a href="/register" class="btn register-btn">Register</a>
+                <AuthorizeView>
+                    <NotAuthorized>
+                        <a href="/login" class="login-link">Login</a>
+                        <a href="/register" class="btn register-btn">Register</a>
+                    </NotAuthorized>
+                    <Authorized>
+                        <span class="welcome-msg">Welcome, @context.User.Identity?.Name!</span>
+                        <a href="javascript:void(0);" class="btn logout-btn" @onclick="Logout">Logout</a>
+                    </Authorized>
+                </AuthorizeView>
             </div>
         </div>
 
@@ -41,10 +52,32 @@
     .register-btn:hover {
         background-color: #002752; /* Darker blue on hover */
         color: white; /* Ensure text remains white on hover */
-        text-decoration:none !important;
+        text-decoration: none !important;
     }
 
     .register-btn:active {
         background-color: #001a3a !important; /* Even darker blue when clicked */
     }
+
+    .logout-btn {
+        background-color: #dc3545; /* Bootstrap red */
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.2s ease-in-out;
+    }
+
+    .logout-btn:hover {
+        background-color: #bd2130;
+    }
 </style>
+
+@code {
+    private void Logout()
+    {
+        // Perform logout logic here (e.g., clear token, notify provider)
+        Navigation.NavigateTo("/logout");
+    }
+}

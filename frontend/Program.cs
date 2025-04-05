@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using frontend; // Ensure this namespace is correct
 using Blazored.LocalStorage;
 using Microsoft.AspNetCore.Components.Authorization;
+
 using System.Net.Http;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

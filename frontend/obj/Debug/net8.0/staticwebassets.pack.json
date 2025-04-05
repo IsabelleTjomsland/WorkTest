@@ -49,6 +49,10 @@
       "PackagePath": "staticwebassets\\eye.svg"
     },
     {
+      "Id": "C:\\Worktest\\frontend\\wwwroot\\hidden.svg",
+      "PackagePath": "staticwebassets\\hidden.svg"
+    },
+    {
       "Id": "C:\\Worktest\\frontend\\wwwroot\\index.html",
       "PackagePath": "staticwebassets\\index.html"
     },

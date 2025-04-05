@@ -21,9 +21,16 @@
         <InputText id="username" class="form-control" @bind-Value="loginModel.Username" />
     </div>
 
-    <div class="form-group">
+    <div class="form-group position-relative">
         <label for="password">Password</label>
-        <InputText id="password" class="form-control" @bind-Value="loginModel.Password" type="password" />
+        <InputText id="password"
+                   class="form-control pe-5"
+                   @bind-Value="loginModel.Password"
+                   type="@passwordInputType" />
+
+        <img src="@eyeIcon"
+             @onclick="TogglePasswordVisibility"
+             style="position: absolute; right: 10px; top: 30px; width: 24px; height: 24px; cursor: pointer;" />
     </div>
 
     <div class="mt-4"> 
@@ -34,6 +41,15 @@
 @code {
     private LoginModel loginModel = new LoginModel();
     private string errorMessage;
+
+    private bool isPasswordVisible = false;
+    private string passwordInputType => isPasswordVisible ? "text" : "password";
+    private string eyeIcon => isPasswordVisible ? "closed.svg" : "eye.svg";
+
+    private void TogglePasswordVisibility()
+    {
+        isPasswordVisible = !isPasswordVisible;
+    }
 
     private async Task HandleLogin()
     {

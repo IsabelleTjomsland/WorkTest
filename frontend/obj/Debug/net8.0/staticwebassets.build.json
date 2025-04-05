@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "8RPq5TU8dgfvO03sj6J1IT9feY6/iOiDw+tgI5mWBbw=",
+  "Hash": "A93C2DuR/R2y8IIBr1hyEZ1aC8rnIX4ZML2bEpFm7WU=",
   "Source": "frontend",
   "BasePath": "/",
   "Mode": "Root",
@@ -16,6 +16,25 @@
     }
   ],
   "Assets": [
+    {
+      "Identity": "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\9.0.3\\staticwebassets\\AuthenticationService.js",
+      "SourceId": "Microsoft.AspNetCore.Components.WebAssembly.Authentication",
+      "SourceType": "Package",
+      "ContentRoot": "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\9.0.3\\staticwebassets\\",
+      "BasePath": "_content/Microsoft.AspNetCore.Components.WebAssembly.Authentication",
+      "RelativePath": "AuthenticationService.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\9.0.3\\staticwebassets\\AuthenticationService.js"
+    },
     {
       "Identity": "C:\\Worktest\\frontend\\bin\\Debug\\net8.0\\wwwroot\\_framework\\af\\Humanizer.resources.wasm",
       "SourceId": "frontend",
@@ -15386,6 +15405,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\eye.svg"
+    },
+    {
+      "Identity": "C:\\Worktest\\frontend\\wwwroot\\hidden.svg",
+      "SourceId": "frontend",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Worktest\\frontend\\wwwroot\\",
+      "BasePath": "/",
+      "RelativePath": "hidden.svg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\hidden.svg"
     },
     {
       "Identity": "C:\\Worktest\\frontend\\wwwroot\\index.html",

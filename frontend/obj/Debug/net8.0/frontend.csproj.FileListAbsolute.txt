@@ -2009,3 +2009,4 @@ C:\Worktest\frontend\obj\Debug\net8.0\compressed\x9dnu3cca8.gz
 C:\Worktest\frontend\obj\Debug\net8.0\compressed\q2coe2au51.gz
 C:\Worktest\frontend\obj\Debug\net8.0\compressed\uewvs0hunu.gz
 C:\Worktest\frontend\obj\Debug\net8.0\compressed\0cq0e3kowq.gz
+C:\Worktest\frontend\obj\Debug\net8.0\frontend.sourcelink.json

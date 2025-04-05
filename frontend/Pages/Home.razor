@@ -1,92 +1,122 @@
 ﻿@page "/"
 @inject HttpClient Http
+@inject CustomAuthenticationStateProvider AuthenticationStateProvider
 
-<div class="home-page">
-    <!-- Introductory Header -->
-    <header class="intro-header">
-        <h1>Home dashboard</h1>
-    </header>
+@if (!isUserAuthenticated)
+{
+      <img src="hidden.svg" alt="Access Denied" style="width: 100px; height: auto;" />
 
-    <!-- Paragraph Section -->
-    <section class="paragraph-header">
-        <h2>Current device state</h2>
-    </section>
+    <h2>You are not authorized.</h2>
+    <p>
+        Please <a href="/register">register</a> and <a href="/login">login</a> to access your personalized dashboard.
+        Once logged in, you'll be able to:
+    </p>
+    <ul>
+        <li>View the current state of all your devices</li>
+        <li>See a real-time overview of active and inactive devices</li>
+        <li>Sort and monitor your device list efficiently</li>
+        <li>Take control of your connected environment</li>
+    </ul>
+    <p>
+        Don't have an account yet? <a href="/register">Click here to register</a> and get started.
+    </p>
+}
+else
+{
+    <div class="home-page">
+        <!-- Introductory Header -->
+        <header class="intro-header">
+            <h1>Home dashboard</h1>
+        </header>
 
-    <!-- Display Active and Inactive Device Counts -->
-    <section class="device-counts">
-        <div class="device-box active">
-            <h3>Active Devices</h3>
-            <p>@activeDeviceCount</p>
-        </div>
-        <div class="device-box inactive">
-            <h3>Inactive Devices</h3>
-            <p>@inactiveDeviceCount</p>
-        </div>
-    </section>
+        <!-- Paragraph Section -->
+        <section class="paragraph-header">
+            <h2>Current device state</h2>
+        </section>
 
-    <!-- Device Table Section -->
-    <section class="device-table">
-        <h3>All devices</h3>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th class="column" @onclick="SortById">ID 
-                        <span class="arrow">@GetArrow("Id")</span>
-                    </th>
-                    <th class="column" @onclick="SortByName">Name
-                        <span class="arrow">@GetArrow("Name")</span>
-                    </th>
-                    <th class="column">Status</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var device in devices)
-                {
+        <!-- Authorized user data display -->
+        <section class="device-counts">
+            <div class="device-box active">
+                <h3>Active Devices</h3>
+                <p>@activeDeviceCount</p>
+            </div>
+            <div class="device-box inactive">
+                <h3>Inactive Devices</h3>
+                <p>@inactiveDeviceCount</p>
+            </div>
+        </section>
+
+        <!-- Device Table Section -->
+        <section class="device-table">
+            <h3>All devices</h3>
+            <table class="table">
+                <thead>
                     <tr>
-                        <td>@device.Id</td>
-                        <td>@device.Name</td>
-                        <td>
-                            @if (device.Status)
-                            {
-                                <span class="status-circle on"></span><span> On</span>
-                            }
-                            else
-                            {
-                                <span class="status-circle off"></span>@(" Off")
-                            }
-                        </td>
+                        <th class="column" @onclick="SortById">ID 
+                            <span class="arrow">@GetArrow("Id")</span>
+                        </th>
+                        <th class="column" @onclick="SortByName">Name
+                            <span class="arrow">@GetArrow("Name")</span>
+                        </th>
+                        <th class="column" @onclick="SortByStatus">Status
+                            <span class="arrow">@GetArrow("Status")</span>
+                        </th>
                     </tr>
-                }
-            </tbody>
-        </table>
-    </section>
-</div>
+                </thead>
+                <tbody>
+                    @foreach (var device in devices)
+                    {
+                        <tr>
+                            <td>@device.Id</td>
+                            <td>@device.Name</td>
+                            <td>
+                                @if (device.Status)
+                                {
+                                    <span class="status-circle on"></span><span> On</span>
+                                }
+                                else
+                                {
+                                    <span class="status-circle off"></span>@(" Off")
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </section>
+    </div>
+}
 
 @code {
+    private bool isUserAuthenticated = false;
     private int activeDeviceCount = 0;
     private int inactiveDeviceCount = 0;
     private List<Device> devices;
-    private string sortBy = "Id"; // Default sorting by ID
-    private string sortDirection = "asc"; // Default direction is ascending
+    private string sortBy = "Id";
+    private string sortDirection = "asc";
 
-    // Fetch data on page load
     protected override async Task OnInitializedAsync()
     {
-        try
+        var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        isUserAuthenticated = authenticationState.User.Identity.IsAuthenticated;
+
+        if (isUserAuthenticated)
         {
-            devices = await Http.GetFromJsonAsync<List<Device>>("http://localhost:5246/api/devices");
-            
-            if (devices != null)
+            try
             {
-                // Count devices based on their status (true = active, false = inactive)
-                activeDeviceCount = devices.Count(d => d.Status);
-                inactiveDeviceCount = devices.Count(d => !d.Status);
-                SortDevices(); // Apply initial sorting
+                devices = await Http.GetFromJsonAsync<List<Device>>("http://localhost:5246/api/devices");
+
+                if (devices != null)
+                {
+                    activeDeviceCount = devices.Count(d => d.Status);
+                    inactiveDeviceCount = devices.Count(d => !d.Status);
+                    SortDevices();
+                }
             }
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Error fetching data: {ex.Message}");
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error fetching data: {ex.Message}");
+            }
         }
     }
 
@@ -94,11 +124,21 @@
     {
         if (sortBy == "Id")
         {
-            devices = sortDirection == "asc" ? devices.OrderBy(d => d.Id).ToList() : devices.OrderByDescending(d => d.Id).ToList();
+            devices = sortDirection == "asc"
+                ? devices.OrderBy(d => d.Id).ToList()
+                : devices.OrderByDescending(d => d.Id).ToList();
         }
         else if (sortBy == "Name")
         {
-            devices = sortDirection == "asc" ? devices.OrderBy(d => d.Name).ToList() : devices.OrderByDescending(d => d.Name).ToList();
+            devices = sortDirection == "asc"
+                ? devices.OrderBy(d => d.Name).ToList()
+                : devices.OrderByDescending(d => d.Name).ToList();
+        }
+        else if (sortBy == "Status")
+        {
+            devices = sortDirection == "asc"
+                ? devices.OrderBy(d => d.Status).ToList()
+                : devices.OrderByDescending(d => d.Status).ToList();
         }
     }
 
@@ -106,12 +146,12 @@
     {
         if (sortBy == "Id")
         {
-            sortDirection = sortDirection == "asc" ? "desc" : "asc"; // Toggle sort direction
+            sortDirection = sortDirection == "asc" ? "desc" : "asc";
         }
         else
         {
             sortBy = "Id";
-            sortDirection = "asc"; // Default to ascending if sorting by ID
+            sortDirection = "asc";
         }
         SortDevices();
     }
@@ -120,12 +160,26 @@
     {
         if (sortBy == "Name")
         {
-            sortDirection = sortDirection == "asc" ? "desc" : "asc"; // Toggle sort direction
+            sortDirection = sortDirection == "asc" ? "desc" : "asc";
         }
         else
         {
             sortBy = "Name";
-            sortDirection = "asc"; // Default to ascending if sorting by Name
+            sortDirection = "asc";
+        }
+        SortDevices();
+    }
+
+    private void SortByStatus()
+    {
+        if (sortBy == "Status")
+        {
+            sortDirection = sortDirection == "asc" ? "desc" : "asc";
+        }
+        else
+        {
+            sortBy = "Status";
+            sortDirection = "asc";
         }
         SortDevices();
     }
@@ -136,16 +190,17 @@
         {
             return sortDirection == "asc" ? "↑" : "↓";
         }
-        return ""; // No arrow if not sorting by this column
+        return "";
     }
 
     public class Device
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public bool Status { get; set; }  // 'true' = On, 'false' = Off
+        public bool Status { get; set; }
     }
 }
+
 
 <style>
     /* Set up gradient background and styling for the device boxes */

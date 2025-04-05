@@ -2,9 +2,8 @@
 @inject HttpClient Http
 @inject NavigationManager Navigation
 
-<h3 class="mb-4 gradient-text">Devices management</h3>
+<h3 class="mb-4 gradient-text" style="margin-bottom: 8rem;">Devices management</h3>
 
-<!-- Button to create a new device with increased bottom margin using Bootstrap classes -->
 <button class="btn btn-primary mb-5" @onclick="NavigateToCreateDevice">Create a new device</button>
 
 @if (devices == null)
@@ -34,8 +33,14 @@ else
                         <span class="arrow">@(sortDirection == "asc" ? "▼" : "▲")</span>
                     }
                 </th>
-                <th class="column">Status</th>
-                <th class="column-actions text-end"></th> <!-- Align Actions to the right and move it closer -->
+                <th class="column" @onclick="() => SortByStatus()">
+                    Status
+                    @if (sortBy == "Status")
+                    {
+                        <span class="arrow">@(sortDirection == "asc" ? "▼" : "▲")</span>
+                    }
+                </th>
+                <th class="column-actions text-end"></th>
             </tr>
         </thead>
         <tbody>
@@ -67,8 +72,8 @@ else
 
 @code {
     private List<Device> devices = new();
-    private string sortBy = "Id"; // Default sorting by ID
-    private string sortDirection = "asc"; // Default direction is ascending
+    private string sortBy = "Id"; 
+    private string sortDirection = "asc"; 
 
     protected override async Task OnInitializedAsync()
     {
@@ -93,18 +98,22 @@ else
         {
             devices = sortDirection == "asc" ? devices.OrderBy(d => d.Name).ToList() : devices.OrderByDescending(d => d.Name).ToList();
         }
+        else if (sortBy == "Status")
+        {
+            devices = sortDirection == "asc" ? devices.OrderBy(d => d.Status).ToList() : devices.OrderByDescending(d => d.Status).ToList();
+        }
     }
 
     private void SortById()
     {
         if (sortBy == "Id")
         {
-            sortDirection = sortDirection == "asc" ? "desc" : "asc"; // Toggle sort direction
+            sortDirection = sortDirection == "asc" ? "desc" : "asc"; 
         }
         else
         {
             sortBy = "Id";
-            sortDirection = "asc"; // Default to ascending if sorting by ID
+            sortDirection = "asc"; 
         }
         SortDevices();
     }
@@ -113,12 +122,26 @@ else
     {
         if (sortBy == "Name")
         {
-            sortDirection = sortDirection == "asc" ? "desc" : "asc"; // Toggle sort direction
+            sortDirection = sortDirection == "asc" ? "desc" : "asc"; 
         }
         else
         {
             sortBy = "Name";
-            sortDirection = "asc"; // Default to ascending if sorting by Name
+            sortDirection = "asc"; 
+        }
+        SortDevices();
+    }
+
+    private void SortByStatus()
+    {
+        if (sortBy == "Status")
+        {
+            sortDirection = sortDirection == "asc" ? "desc" : "asc"; 
+        }
+        else
+        {
+            sortBy = "Status";
+            sortDirection = "asc"; 
         }
         SortDevices();
     }
@@ -137,23 +160,19 @@ else
 }
 
 <style>
+    
     .custom-table th, .custom-table td {
-        padding-left: 30px;  /* Adjust the left padding */
-        padding-right: 30px; /* Adjust the right padding */
+        padding-left: 40px;  /* Increased left padding */
+        padding-right: 40px; /* Increased right padding */
+    }
+
+    .column {
+        padding-left: 40px;  /* Increased left padding for each column */
+        padding-right: 40px; /* Increased right padding for each column */
     }
 
     .text-end {
         text-align: right; /* Align the Actions column to the right */
-    }
-
-    /* Apply consistent padding to all columns */
-    .column {
-        padding-right: 40px; /* Add equal space between each column */
-    }
-
-    /* Reduce padding for Actions column to move it closer */
-    .column-actions {
-        padding-right: 20px; /* Decrease space for Actions column */
     }
 
     /* Style for the arrows */
@@ -198,6 +217,5 @@ else
         background-clip: text;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-       
     }
 </style>

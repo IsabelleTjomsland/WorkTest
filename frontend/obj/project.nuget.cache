@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "dcd/2E7kI5+XJhB++qdvv6OB5/t6KF+TOYZMa4CRsQfQPnn9SLmFAV4sj6SUBfOSvLKdI6FA7UiwKLJDc+CgVQ==",
+  "dgSpecHash": "kAwZuJJ0SVSdIoRlTxXULhQ2rGehA0BBxgwYTGILEdO8i3H3I47yM8e0Cv4Bwmr+dogY7bzZ5SyNor/hup72lA==",
   "success": true,
   "projectFilePath": "C:\\Worktest\\frontend\\frontend.csproj",
   "expectedPackageFiles": [
@@ -63,6 +63,7 @@
     "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.forms\\8.0.14\\microsoft.aspnetcore.components.forms.8.0.14.nupkg.sha512",
     "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.web\\8.0.14\\microsoft.aspnetcore.components.web.8.0.14.nupkg.sha512",
     "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly\\8.0.14\\microsoft.aspnetcore.components.webassembly.8.0.14.nupkg.sha512",
+    "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.authentication\\9.0.3\\microsoft.aspnetcore.components.webassembly.authentication.9.0.3.nupkg.sha512",
     "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.components.webassembly.devserver\\8.0.14\\microsoft.aspnetcore.components.webassembly.devserver.8.0.14.nupkg.sha512",
     "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.metadata\\8.0.14\\microsoft.aspnetcore.metadata.8.0.14.nupkg.sha512",
     "C:\\Users\\isabe\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.24\\microsoft.aspnetcore.razor.language.6.0.24.nupkg.sha512",
