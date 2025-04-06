@@ -97,17 +97,42 @@ else if (deviceData == null)
 }
 
 @code {
+    /// <summary>
+    /// The register address selected by the user.
+    /// </summary>
     private ushort registerAddress;
+
+    /// <summary>
+    /// The Modbus response for a specific device based on the selected address.
+    /// </summary>
     private ModbusReadResponse? deviceData;
+
+    /// <summary>
+    /// A list of all devices fetched from the server.
+    /// </summary>
     private List<ModbusReadResponse> allDevices = new();
+
+    /// <summary>
+    /// An error message displayed in case of an error during data fetching.
+    /// </summary>
     private string? errorMessage;
+
+    /// <summary>
+    /// A list of available register addresses that the user can select.
+    /// </summary>
     private List<ushort> availableAddresses = Enumerable.Range(1, 10).Select(x => (ushort)x).ToList();
 
+    /// <summary>
+    /// Initializes the page by fetching all devices.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         await GetAllDevices();  // This will load all devices when the page is initialized
     }
 
+    /// <summary>
+    /// Fetches the device data for the selected register address.
+    /// </summary>
     private async Task FindDevice()
     {
         if (registerAddress == 0)
@@ -136,6 +161,9 @@ else if (deviceData == null)
         }
     }
 
+    /// <summary>
+    /// Fetches data for all available devices.
+    /// </summary>
     private async Task GetAllDevices()
     {
         allDevices.Clear();
@@ -158,6 +186,11 @@ else if (deviceData == null)
         }
     }
 
+    /// <summary>
+    /// Toggles the status of a device between On/Off.
+    /// </summary>
+    /// <param name="device">The device to toggle the status for.</param>
+    /// <param name="isChecked">The new status value (On/Off).</param>
     private async Task ToggleDeviceStatus(ModbusReadResponse device, bool isChecked)
     {
         try
@@ -177,10 +210,24 @@ else if (deviceData == null)
         }
     }
 
+    /// <summary>
+    /// Represents the response structure from a Modbus device.
+    /// </summary>
     private class ModbusReadResponse
     {
+        /// <summary>
+        /// The starting address of the device.
+        /// </summary>
         public ushort StartAddress { get; set; }
+
+        /// <summary>
+        /// The value representing the device's status (1 for On, 0 for Off).
+        /// </summary>
         public ushort Value { get; set; }
+
+        /// <summary>
+        /// The alias or name of the device.
+        /// </summary>
         public string Alias { get; set; } = "";
     }
 }

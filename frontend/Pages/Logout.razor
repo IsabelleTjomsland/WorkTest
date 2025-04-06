@@ -1,9 +1,9 @@
-@page "/logout"
+@page "/logout" 
 @inject CustomAuthenticationStateProvider AuthProvider
 @inject NavigationManager Navigation
 
-<h2>Come back soon!</h2>
-<p>Are you sure you want to logout?</p>
+<h2>Are you sure you want to logout?</h2>
+<p>You'll need to log in again to access your account.</p>
 
 <!-- Logout button -->
 <button class="logout-button" @onclick="HandleLogout">Log Out</button>
@@ -40,8 +40,13 @@
 
 <style>
     h2 {
-        font-size: 28px;
-        margin-top: 20px;
+        font-size: 40px; /* Increase size */
+        margin-top: 30px; /* Increase space from top */
+        margin-bottom: 40px; /* Increase space between h2 and p */
+        background: linear-gradient(90deg, #022f76, #048bde); /* Gradient color */
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     p {
