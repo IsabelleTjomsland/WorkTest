@@ -5,9 +5,9 @@ public class ApplicationDbContext : DbContext
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
-    // DbSet för devices
+    // DbSet för enheter
     public DbSet<Device> Devices { get; set; }
 
-    // DbSet för användare (nytt)
+    // DbSet för användare 
     public DbSet<User> Users { get; set; }
 }

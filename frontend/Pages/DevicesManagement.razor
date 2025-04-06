@@ -71,14 +71,29 @@ else
 }
 
 @code {
+    /// <summary>
+    /// A list of devices fetched from the server.
+    /// </summary>
     private List<Device> devices = new();
+
+    /// <summary>
+    /// The property used to determine which column the devices should be sorted by.
+    /// </summary>
     private string sortBy = "Id"; 
+
+    /// <summary>
+    /// The current sorting direction ("asc" for ascending, "desc" for descending).
+    /// </summary>
     private string sortDirection = "asc"; 
 
+    /// <summary>
+    /// Called when the component is initialized. Fetches the list of devices from the API.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         try
         {
+            // Fetch list of devices from API
             devices = await Http.GetFromJsonAsync<List<Device>>("http://localhost:5246/api/devices");
             SortDevices();
         }
@@ -88,6 +103,9 @@ else
         }
     }
 
+    /// <summary>
+    /// Sorts the list of devices based on the selected column and sort direction.
+    /// </summary>
     private void SortDevices()
     {
         if (sortBy == "Id")
@@ -104,6 +122,10 @@ else
         }
     }
 
+    /// <summary>
+    /// Called when the user clicks to sort by the "ID" column. 
+    /// Toggles the sort direction between ascending and descending.
+    /// </summary>
     private void SortById()
     {
         if (sortBy == "Id")
@@ -118,6 +140,10 @@ else
         SortDevices();
     }
 
+    /// <summary>
+    /// Called when the user clicks to sort by the "Name" column. 
+    /// Toggles the sort direction between ascending and descending.
+    /// </summary>
     private void SortByName()
     {
         if (sortBy == "Name")
@@ -132,6 +158,10 @@ else
         SortDevices();
     }
 
+    /// <summary>
+    /// Called when the user clicks to sort by the "Status" column. 
+    /// Toggles the sort direction between ascending and descending.
+    /// </summary>
     private void SortByStatus()
     {
         if (sortBy == "Status")
@@ -146,18 +176,48 @@ else
         SortDevices();
     }
 
+    /// <summary>
+    /// Navigates to the create device page.
+    /// </summary>
     private void NavigateToCreateDevice() => Navigation.NavigateTo("/create-device");
+
+    /// <summary>
+    /// Navigates to the edit device page with the specified device ID.
+    /// </summary>
     private void NavigateToEdit(int id) => Navigation.NavigateTo($"/edit-device?id={id}");
+
+    /// <summary>
+    /// Navigates to the device details page with the specified device ID.
+    /// </summary>
     private void NavigateToDetails(int id) => Navigation.NavigateTo($"/device-details?id={id}");
+
+    /// <summary>
+    /// Navigates to the delete device page with the specified device ID.
+    /// </summary>
     private void NavigateToDelete(int id) => Navigation.NavigateTo($"/delete-device?id={id}");
 
+    /// <summary>
+    /// Represents a device with an ID, Name, and Status.
+    /// </summary>
     public class Device
     {
+        /// <summary>
+        /// The unique identifier of the device.
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// The name of the device.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The status of the device (true if the device is on, false if it is off).
+        /// </summary>
         public bool Status { get; set; }
     }
 }
+
 
 <style>
     

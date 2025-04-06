@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "5Iqg30n7wa/BzSSIRiSUdGLpnt9RsP4zsRfmcFXPIWw=",
+  "Hash": "r8Fh+Zwu1nmLDzFJyQEEpgs0UOCFzfDYD9O1MXuZFYI=",
   "Source": "frontend",
   "BasePath": "/",
   "Mode": "Root",
@@ -15369,25 +15369,6 @@
       "OriginalItemSpec": "wwwroot\\css\\images\\pc.svg"
     },
     {
-      "Identity": "C:\\Worktest\\frontend\\wwwroot\\data.svg",
-      "SourceId": "frontend",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Worktest\\frontend\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "data.svg",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\data.svg"
-    },
-    {
       "Identity": "C:\\Worktest\\frontend\\wwwroot\\eye.svg",
       "SourceId": "frontend",
       "SourceType": "Discovered",
@@ -15538,25 +15519,6 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\videos\\unity.mp4"
-    },
-    {
-      "Identity": "C:\\Worktest\\frontend\\wwwroot\\waiting.mp4",
-      "SourceId": "frontend",
-      "SourceType": "Discovered",
-      "ContentRoot": "C:\\Worktest\\frontend\\wwwroot\\",
-      "BasePath": "/",
-      "RelativePath": "waiting.mp4",
-      "AssetKind": "All",
-      "AssetMode": "All",
-      "AssetRole": "Primary",
-      "AssetMergeBehavior": "PreferTarget",
-      "AssetMergeSource": "",
-      "RelatedAsset": "",
-      "AssetTraitName": "",
-      "AssetTraitValue": "",
-      "CopyToOutputDirectory": "Never",
-      "CopyToPublishDirectory": "PreserveNewest",
-      "OriginalItemSpec": "wwwroot\\waiting.mp4"
     }
   ]
 }

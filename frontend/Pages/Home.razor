@@ -4,8 +4,8 @@
 
 @if (!isUserAuthenticated)
 {
-      <img src="hidden.svg" alt="Access Denied" style="width: 100px; height: auto;" />
-
+    <!-- Display access denied message if user is not authenticated -->
+    <img src="hidden.svg" alt="Access Denied" style="width: 100px; height: auto;" />
     <h2>You are not authorized.</h2>
     <p>
         Please <a href="/register">register</a> and <a href="/login">login</a> to access your personalized dashboard.
@@ -23,6 +23,7 @@
 }
 else
 {
+    <!-- Display content for authenticated users -->
     <div class="home-page">
         <!-- Introductory Header -->
         <header class="intro-header">
@@ -88,13 +89,40 @@ else
 }
 
 @code {
+    /// <summary>
+    /// Indicates whether the user is authenticated.
+    /// </summary>
     private bool isUserAuthenticated = false;
+
+    /// <summary>
+    /// Holds the count of active devices.
+    /// </summary>
     private int activeDeviceCount = 0;
+
+    /// <summary>
+    /// Holds the count of inactive devices.
+    /// </summary>
     private int inactiveDeviceCount = 0;
+
+    /// <summary>
+    /// List of devices to be displayed in the table.
+    /// </summary>
     private List<Device> devices;
+
+    /// <summary>
+    /// Property that specifies the column to sort by.
+    /// </summary>
     private string sortBy = "Id";
+
+    /// <summary>
+    /// Property that specifies the sort direction (ascending or descending).
+    /// </summary>
     private string sortDirection = "asc";
 
+    /// <summary>
+    /// Invoked when the component is initialized. Retrieves user authentication status and device data.
+    /// </summary>
+    /// <returns>Asynchronous task representing the initialization.</returns>
     protected override async Task OnInitializedAsync()
     {
         var authenticationState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
@@ -104,10 +132,12 @@ else
         {
             try
             {
+                // Fetch devices data if the user is authenticated
                 devices = await Http.GetFromJsonAsync<List<Device>>("http://localhost:5246/api/devices");
 
                 if (devices != null)
                 {
+                    // Count active and inactive devices
                     activeDeviceCount = devices.Count(d => d.Status);
                     inactiveDeviceCount = devices.Count(d => !d.Status);
                     SortDevices();
@@ -120,6 +150,9 @@ else
         }
     }
 
+    /// <summary>
+    /// Sorts the devices list based on the selected column and direction.
+    /// </summary>
     private void SortDevices()
     {
         if (sortBy == "Id")
@@ -142,6 +175,9 @@ else
         }
     }
 
+    /// <summary>
+    /// Sorts the devices list by ID when the corresponding header is clicked.
+    /// </summary>
     private void SortById()
     {
         if (sortBy == "Id")
@@ -156,6 +192,9 @@ else
         SortDevices();
     }
 
+    /// <summary>
+    /// Sorts the devices list by Name when the corresponding header is clicked.
+    /// </summary>
     private void SortByName()
     {
         if (sortBy == "Name")
@@ -170,6 +209,9 @@ else
         SortDevices();
     }
 
+    /// <summary>
+    /// Sorts the devices list by Status when the corresponding header is clicked.
+    /// </summary>
     private void SortByStatus()
     {
         if (sortBy == "Status")
@@ -184,6 +226,11 @@ else
         SortDevices();
     }
 
+    /// <summary>
+    /// Returns the appropriate arrow symbol for sorting based on the current sort column and direction.
+    /// </summary>
+    /// <param name="column">The column to get the arrow for.</param>
+    /// <returns>A string containing the arrow symbol.</returns>
     private string GetArrow(string column)
     {
         if (sortBy == column)
@@ -193,10 +240,24 @@ else
         return "";
     }
 
+    /// <summary>
+    /// Represents a device with properties for ID, Name, and Status.
+    /// </summary>
     public class Device
     {
+        /// <summary>
+        /// Gets or sets the unique identifier for the device.
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// Gets or sets the name of the device.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the status of the device (on/off).
+        /// </summary>
         public bool Status { get; set; }
     }
 }

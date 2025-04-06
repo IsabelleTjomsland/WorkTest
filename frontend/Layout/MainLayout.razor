@@ -2,19 +2,25 @@
 
 @inject NavigationManager Navigation
 
+<!-- Page container -->
 <div class="page">
+    <!-- Sidebar containing the navigation menu -->
     <div class="sidebar">
         <NavMenu />
     </div>
 
     <main>
+        <!-- Top row for authentication buttons -->
         <div class="top-row px-4 d-flex justify-content-end">
             <div class="auth-buttons">
+                <!-- Display different views based on authorization -->
                 <AuthorizeView>
+                    <!-- If the user is not authorized, show login and register links -->
                     <NotAuthorized>
                         <a href="/login" class="login-link">Login</a>
                         <a href="/register" class="btn register-btn">Register</a>
                     </NotAuthorized>
+                    <!-- If the user is authorized, show welcome message and logout button -->
                     <Authorized>
                         <span class="welcome-msg">Welcome, @context.User.Identity?.Name!</span>
                         <a href="javascript:void(0);" class="btn logout-btn" @onclick="Logout">Logout</a>
@@ -23,13 +29,15 @@
             </div>
         </div>
 
+        <!-- Main content area -->
         <article class="content px-4">
-            @Body
+            @Body <!-- Body of the page injected here -->
         </article>
     </main>
 </div>
 
 <style>
+    /* Style for the login link */
     .login-link {
         text-decoration: none;
         color: #007bff; /* Normal link color */
@@ -40,6 +48,7 @@
         color: #0056b3; /* Slightly darker blue on hover */
     }
 
+    /* Style for the register button */
     .register-btn {
         background-color: #004085; /* Dark blue */
         color: white;
@@ -59,6 +68,7 @@
         background-color: #001a3a !important; /* Even darker blue when clicked */
     }
 
+    /* Style for the logout button */
     .logout-btn {
         background-color: #dc3545; /* Bootstrap red */
         color: white;
@@ -75,9 +85,12 @@
 </style>
 
 @code {
+    /// <summary>
+    /// Handles the logout logic by clearing authentication tokens and navigating to the logout page.
+    /// </summary>
     private void Logout()
     {
         // Perform logout logic here (e.g., clear token, notify provider)
-        Navigation.NavigateTo("/logout");
+        Navigation.NavigateTo("/logout"); // Redirect user to the logout page
     }
 }

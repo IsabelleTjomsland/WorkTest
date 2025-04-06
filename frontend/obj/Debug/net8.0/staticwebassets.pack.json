@@ -41,10 +41,6 @@
       "PackagePath": "staticwebassets\\css\\images\\pc.svg"
     },
     {
-      "Id": "C:\\Worktest\\frontend\\wwwroot\\data.svg",
-      "PackagePath": "staticwebassets\\data.svg"
-    },
-    {
       "Id": "C:\\Worktest\\frontend\\wwwroot\\eye.svg",
       "PackagePath": "staticwebassets\\eye.svg"
     },
@@ -67,10 +63,6 @@
     {
       "Id": "C:\\Worktest\\frontend\\wwwroot\\videos\\unity.mp4",
       "PackagePath": "staticwebassets\\videos\\unity.mp4"
-    },
-    {
-      "Id": "C:\\Worktest\\frontend\\wwwroot\\waiting.mp4",
-      "PackagePath": "staticwebassets\\waiting.mp4"
     },
     {
       "Id": "obj\\Debug\\net8.0\\staticwebassets\\msbuild.build.frontend.props",

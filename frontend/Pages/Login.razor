@@ -9,6 +9,7 @@
 
 @if (!string.IsNullOrEmpty(errorMessage))
 {
+    <!-- Display error message if there's a login error -->
     <div class="alert alert-danger">@errorMessage</div>
 }
 
@@ -16,11 +17,13 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
+    <!-- Username input field -->
     <div class="form-group">
         <label for="username">Username</label>
         <InputText id="username" class="form-control" @bind-Value="loginModel.Username" />
     </div>
 
+    <!-- Password input field with visibility toggle -->
     <div class="form-group position-relative">
         <label for="password">Password</label>
         <InputText id="password"
@@ -28,44 +31,75 @@
                    @bind-Value="loginModel.Password"
                    type="@passwordInputType" />
 
+        <!-- Toggle password visibility icon -->
         <img src="@eyeIcon"
              @onclick="TogglePasswordVisibility"
              style="position: absolute; right: 10px; top: 30px; width: 24px; height: 24px; cursor: pointer;" />
     </div>
 
+    <!-- Submit button -->
     <div class="mt-4"> 
         <button type="submit" class="btn btn-primary">Login</button>
     </div>
 </EditForm>
 
 @code {
+    /// <summary>
+    /// Model for user login containing the username and password fields.
+    /// </summary>
     private LoginModel loginModel = new LoginModel();
+
+    /// <summary>
+    /// Holds the error message to be displayed on failed login attempts.
+    /// </summary>
     private string errorMessage;
 
+    /// <summary>
+    /// Flag to determine if the password is visible or hidden.
+    /// </summary>
     private bool isPasswordVisible = false;
+
+    /// <summary>
+    /// Property that dynamically sets the password input type based on the visibility flag.
+    /// </summary>
     private string passwordInputType => isPasswordVisible ? "text" : "password";
+
+    /// <summary>
+    /// Property to determine which icon to display based on the password visibility state.
+    /// </summary>
     private string eyeIcon => isPasswordVisible ? "closed.svg" : "eye.svg";
 
+    /// <summary>
+    /// Toggles the visibility of the password field.
+    /// </summary>
     private void TogglePasswordVisibility()
     {
         isPasswordVisible = !isPasswordVisible;
     }
 
+    /// <summary>
+    /// Handles the login process by sending the login model to the backend API.
+    /// If the login is successful, it stores the JWT token in local storage and updates the authentication state.
+    /// </summary>
+    /// <returns>Asynchronous task representing the login process.</returns>
     private async Task HandleLogin()
     {
         try
         {
+            // Sends the login credentials to the backend API
             var response = await Http.PostAsJsonAsync("http://localhost:5246/api/auth/login", loginModel);
             if (response.IsSuccessStatusCode)
             {
+                // If successful, retrieves the JWT token
                 var responseData = await response.Content.ReadFromJsonAsync<LoginResponse>();
                 var token = responseData?.Token;
 
+                // If token is available, store it in local storage and authenticate the user
                 if (!string.IsNullOrEmpty(token))
                 {
                     await JSRuntime.InvokeVoidAsync("localStorage.setItem", "jwtToken", token);
                     await AuthStateProvider.MarkUserAsAuthenticated(token);
-                    Navigation.NavigateTo("/");
+                    Navigation.NavigateTo("/");  // Redirects to the home page
                 }
                 else
                 {
@@ -79,18 +113,35 @@
         }
         catch (Exception ex)
         {
+            // Handles any errors during the login process
             errorMessage = $"Error: {ex.Message}";
         }
     }
 
+    /// <summary>
+    /// Represents the login credentials submitted by the user.
+    /// </summary>
     public class LoginModel
     {
+        /// <summary>
+        /// Gets or sets the username entered by the user.
+        /// </summary>
         public string Username { get; set; }
+
+        /// <summary>
+        /// Gets or sets the password entered by the user.
+        /// </summary>
         public string Password { get; set; }
     }
 
+    /// <summary>
+    /// Represents the response from the backend API after a successful login, containing the JWT token.
+    /// </summary>
     public class LoginResponse
     {
+        /// <summary>
+        /// Gets or sets the JWT token returned by the authentication API.
+        /// </summary>
         public string Token { get; set; }
     }
 }

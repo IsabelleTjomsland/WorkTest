@@ -70,10 +70,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kYnVzQ29tbXVuaWNhdGlvbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Worktest/frontend/Pages/ModbusCommunicationComponents/EditModbusDevice.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTW9kYnVzQ29tbXVuaWNhdGlvbkNvbXBvbmVudHNcRWRpdE1vZGJ1c0RldmljZS5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Worktest/frontend/Pages/Register.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0ZXIucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 

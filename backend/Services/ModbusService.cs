@@ -10,7 +10,7 @@ namespace Worktest.backend.Services
         private readonly string _ipAddress = "127.0.0.1";  // Example IP
         private readonly int _port = 502;  // Standard Modbus TCP port
 
-        // Timeout for TCP connections (optional)
+        // Timeout for TCP connections 
         private readonly int _timeout = 5000; // 5 seconds
 
         // Read Holding Registers from Modbus slave

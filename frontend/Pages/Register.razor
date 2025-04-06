@@ -37,20 +37,47 @@
 </EditForm>
 
 @code {
+    /// <summary>
+    /// Model representing the user input for registration.
+    /// </summary>
     private RegisterModel registerModel = new RegisterModel();
+
+    /// <summary>
+    /// Holds any error message related to registration.
+    /// </summary>
     private string errorMessage;
 
+    /// <summary>
+    /// Indicates whether the password is visible or hidden.
+    /// </summary>
     private bool isPasswordVisible = false;
+
+    /// <summary>
+    /// The input type for the password field, toggles between "text" and "password".
+    /// </summary>
     private string passwordInputType => isPasswordVisible ? "text" : "password";
+
+    /// <summary>
+    /// The icon representing password visibility, toggles between "eye" and "closed" based on password visibility.
+    /// </summary>
     private string eyeIcon => isPasswordVisible ? "closed.svg" : "eye.svg";
 
+    /// <summary>
+    /// Toggles the visibility of the password field between plain text and hidden text.
+    /// </summary>
     private void TogglePasswordVisibility()
     {
         isPasswordVisible = !isPasswordVisible;
     }
 
+    /// <summary>
+    /// Handles the registration process when the form is submitted.
+    /// Validates the password length and sends a request to the server to create a new user.
+    /// </summary>
+    /// <returns>Asynchronous task representing the registration process.</returns>
     private async Task HandleRegister()
     {
+        // Validate the password length
         if (string.IsNullOrEmpty(registerModel.Password) || registerModel.Password.Length < 8)
         {
             errorMessage = "Password must be at least 8 characters long.";
@@ -59,25 +86,38 @@
 
         try
         {
+            // Send the registration request to the server
             var response = await Http.PostAsJsonAsync("http://localhost:5246/api/auth/register", registerModel);
             if (response.IsSuccessStatusCode)
             {
+                // Navigate to the login page upon successful registration
                 Navigation.NavigateTo("/login"); 
             }
             else
             {
-                errorMessage = "Username already exists";
+                errorMessage = "Username already exists"; // Error message if username already exists
             }
         }
         catch (Exception ex)
         {
+            // Handle any exceptions that occur during registration
             errorMessage = $"Error: {ex.Message}";
         }
     }
 
+    /// <summary>
+    /// Represents the model for user registration, containing the username and password.
+    /// </summary>
     public class RegisterModel
     {
+        /// <summary>
+        /// The username provided by the user for registration.
+        /// </summary>
         public string Username { get; set; }
+
+        /// <summary>
+        /// The password provided by the user for registration.
+        /// </summary>
         public string Password { get; set; }
     }
 }

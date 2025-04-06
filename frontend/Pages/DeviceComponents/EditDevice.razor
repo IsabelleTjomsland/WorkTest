@@ -29,8 +29,15 @@ else
 }
 
 @code {
+    /// <summary>
+    /// The device being edited.
+    /// </summary>
     private Device device = new();
 
+    /// <summary>
+    /// This method is called when the component is initialized.
+    /// It fetches the device details based on the ID passed in the query string.
+    /// </summary>
     protected override async Task OnInitializedAsync()
     {
         var uri = new Uri(Navigation.Uri);
@@ -41,37 +48,61 @@ else
         {
             try
             {
+                // Fetch the device details from the API
                 device = await Http.GetFromJsonAsync<Device>($"http://localhost:5246/api/devices/{deviceId}");
             }
             catch (Exception ex)
             {
+                // Log any errors that occur during fetching the device
                 Console.WriteLine($"Error fetching device: {ex.Message}");
             }
         }
     }
 
+    /// <summary>
+    /// Saves the changes made to the device and navigates back to the device management page.
+    /// </summary>
     private async Task SaveChanges()
     {
         try
         {
+            // Update the device in the API
             await Http.PutAsJsonAsync($"http://localhost:5246/api/devices/{device.Id}", device);
             Navigation.NavigateTo("/devices-management");
         }
         catch (Exception ex)
         {
+            // Log any errors during the update process
             Console.WriteLine($"Error updating device: {ex.Message}");
         }
     }
 
+    /// <summary>
+    /// Cancels the editing process and navigates back to the device management page.
+    /// </summary>
     private void Cancel()
     {
         Navigation.NavigateTo("/devices-management");
     }
 
+    /// <summary>
+    /// Represents a device with an ID, Name, and Status.
+    /// </summary>
     public class Device
     {
+        /// <summary>
+        /// The unique identifier of the device.
+        /// </summary>
         public int Id { get; set; }
+
+        /// <summary>
+        /// The name of the device.
+        /// </summary>
         public string Name { get; set; }
+
+        /// <summary>
+        /// The status of the device (true if the device is on, false if it is off).
+        /// </summary>
         public bool Status { get; set; }
     }
 }

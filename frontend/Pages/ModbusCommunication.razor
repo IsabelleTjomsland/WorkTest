@@ -5,19 +5,21 @@
     Modbus Communication
 </h3>
 
-<div>
-    <label for="addressSelect">Select Register Address:</label>
-    <select id="addressSelect" @bind="registerAddress" class="form-control">
-        @foreach (var address in availableAddresses)
-        {
-            <option value="@address">@address</option>
-        }
-    </select>
+<div style="margin-bottom: 20px;">
+    <label for="addressSelect" style="display: block;">Select Register Address:</label>
+    <div style="display: flex; align-items: center;">
+        <select id="addressSelect" @bind="registerAddress" class="form-control" style="width: 200px; margin-right: 10px;">
+            @foreach (var address in availableAddresses)
+            {
+                <option value="@address">@address</option>
+            }
+        </select>
+        <button @onclick="FindDevice" class="btn btn-primary">Find Device</button>
+    </div>
 </div>
 
-<!-- Adding space between the dropdown and the button -->
-<div style="margin-top: 20px;">
-    <button @onclick="FindDevice" class="btn btn-primary">Find Device</button>
+<div style="margin-top: 30px;">
+    <button @onclick="GetAllDevices" class="btn btn-secondary">All Devices</button>
 </div>
 
 @if (errorMessage != null)
@@ -25,7 +27,7 @@
     <p class="text-danger">@errorMessage</p>
 }
 
-@if (deviceData != null)
+@if (deviceData != null && allDevices.Count == 0)
 {
     <table class="table table-striped custom-table" style="margin-top: 20px;">
         <thead>
@@ -33,7 +35,7 @@
                 <th class="column">Address</th>
                 <th class="column">Status</th>
                 <th class="column">Name</th>
-                <th class="column">Actions</th>
+                <th class="column">Change status</th>
             </tr>
         </thead>
         <tbody>
@@ -45,14 +47,51 @@
                 </td>
                 <td>@deviceData.Alias</td>
                 <td>
-                    <!-- Creating a link to the EditModbusDevice page -->
-                    <a href="/edit-modbus-device" class="btn btn-primary btn-sm">Edit</a>
+                    <label class="switch">
+                        <input type="checkbox" checked="@(deviceData.Value == 1)"
+                               @onchange="(e => ToggleDeviceStatus(deviceData, e.Value is bool b && b))" />
+                        <span class="slider"></span>
+                    </label>
                 </td>
             </tr>
         </tbody>
     </table>
 }
-else
+
+@if (allDevices.Any())
+{
+    <table class="table table-striped custom-table" style="margin-top: 20px;">
+        <thead>
+            <tr>
+                <th class="column">Address</th>
+                <th class="column">Status</th>
+                <th class="column">Name</th>
+                <th class="column">Change status</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var device in allDevices)
+            {
+                <tr>
+                    <td>@device.StartAddress</td>
+                    <td>
+                        <span style="display: inline-block; width: 10px; height: 10px; border-radius: 50%; background-color: @(device.Value == 1 ? "green" : "red");"></span>
+                        @(device.Value == 1 ? "On" : "Off")
+                    </td>
+                    <td>@device.Alias</td>
+                    <td>
+                        <label class="switch">
+                            <input type="checkbox" checked="@(device.Value == 1)"
+                                   @onchange="(e => ToggleDeviceStatus(device, e.Value is bool b && b))" />
+                            <span class="slider"></span>
+                        </label>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (deviceData == null)
 {
     <p>Loading...</p>
 }
@@ -60,12 +99,17 @@ else
 @code {
     private ushort registerAddress;
     private ModbusReadResponse? deviceData;
+    private List<ModbusReadResponse> allDevices = new();
     private string? errorMessage;
     private List<ushort> availableAddresses = Enumerable.Range(1, 10).Select(x => (ushort)x).ToList();
 
+    protected override async Task OnInitializedAsync()
+    {
+        await GetAllDevices();  // This will load all devices when the page is initialized
+    }
+
     private async Task FindDevice()
     {
-        // Validate the registerAddress before making the request
         if (registerAddress == 0)
         {
             errorMessage = "Please select a valid address.";
@@ -76,10 +120,10 @@ else
         {
             errorMessage = null;
             var response = await Http.GetFromJsonAsync<ModbusReadResponse>($"http://localhost:5246/api/modbus/read-register?startAddress={registerAddress}");
-            
             if (response != null)
             {
                 deviceData = response;
+                allDevices.Clear(); // clear any previously shown full list
             }
             else
             {
@@ -92,6 +136,47 @@ else
         }
     }
 
+    private async Task GetAllDevices()
+    {
+        allDevices.Clear();
+        deviceData = null;
+
+        foreach (var address in availableAddresses)
+        {
+            try
+            {
+                var response = await Http.GetFromJsonAsync<ModbusReadResponse>($"http://localhost:5246/api/modbus/read-register?startAddress={address}");
+                if (response != null)
+                {
+                    allDevices.Add(response);
+                }
+            }
+            catch (Exception ex)
+            {
+                errorMessage = $"Error fetching device at address {address}: {ex.Message}";
+            }
+        }
+    }
+
+    private async Task ToggleDeviceStatus(ModbusReadResponse device, bool isChecked)
+    {
+        try
+        {
+            device.Value = (ushort)(isChecked ? 1 : 0);
+
+            var response = await Http.PutAsJsonAsync("http://localhost:5246/api/modbus/update-register", device);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                errorMessage = $"Failed to update device at address {device.StartAddress}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error updating device: {ex.Message}";
+        }
+    }
+
     private class ModbusReadResponse
     {
         public ushort StartAddress { get; set; }
@@ -99,3 +184,56 @@ else
         public string Alias { get; set; } = "";
     }
 }
+
+<style>
+    /* Add padding to table cells for more space between columns */
+    .table th, .table td {
+        padding: 20px 30px; /* Adjust padding as needed */
+    }
+
+    /* Switch button styles */
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 34px;
+        height: 20px;
+    }
+
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+    .slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: .4s;
+        border-radius: 34px;
+    }
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        transition: .4s;
+    }
+
+    input:checked + .slider {
+        background-color: #2196F3;
+    }
+
+    input:checked + .slider:before {
+        transform: translateX(14px);
+    }
+</style>

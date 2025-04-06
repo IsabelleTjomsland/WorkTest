@@ -2,26 +2,39 @@
 @inject CustomAuthenticationStateProvider AuthProvider
 @inject NavigationManager Navigation
 
-
 <h2>Come back soon!</h2>
 <p>Are you sure you want to logout?</p>
 
+<!-- Logout button -->
 <button class="logout-button" @onclick="HandleLogout">Log Out</button>
+
+<!-- Cancel logout button -->
 <button class="cancel-button" @onclick="CancelLogout">Cancel</button>
 
 @code {
+    /// <summary>
+    /// Flag to track the state of the logout process.
+    /// </summary>
     private bool isLoggingOut = false;
 
+    /// <summary>
+    /// Handles the logout process by marking the user as logged out
+    /// and redirecting them to the login page.
+    /// </summary>
+    /// <returns>Asynchronous task representing the logout process.</returns>
     private async Task HandleLogout()
     {
-        isLoggingOut = true;
-        await AuthProvider.MarkUserAsLoggedOut();
-        Navigation.NavigateTo("/login", true);
+        isLoggingOut = true;  // Indicate that the logout process is ongoing
+        await AuthProvider.MarkUserAsLoggedOut();  // Marks the user as logged out in the authentication state provider
+        Navigation.NavigateTo("/login", true);  // Redirects the user to the login page
     }
 
+    /// <summary>
+    /// Cancels the logout process and redirects the user back to the home page.
+    /// </summary>
     private void CancelLogout()
     {
-        Navigation.NavigateTo("/", true);
+        Navigation.NavigateTo("/", true);  // Redirects the user to the home page
     }
 }
 
