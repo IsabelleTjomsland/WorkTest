@@ -8,7 +8,7 @@ using Worktest.backend.Controllers;
 using Worktest.backend.Models;
 using Xunit;
 
-namespace Worktest.Tests
+namespace Worktest.Tests.ControllerTests
 {
     /// <summary>
     /// Contains unit tests for the AuthController class.

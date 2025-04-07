@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Worktest.backend.Controller;
 using Xunit;
 
-namespace Worktest.Tests
+namespace Worktest.Tests.ControllerTests
 {
     /// <summary>
     /// Unit tests for the <see cref="ModbusController"/> class.

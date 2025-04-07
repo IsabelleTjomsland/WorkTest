@@ -10,7 +10,7 @@ using System;
 /// <summary>
 /// Unit tests for the <see cref="DevicesController"/> using an in-memory database.
 /// </summary>
-namespace Worktest.Tests
+namespace  Worktest.Tests.ControllerTests
 {
     public class DevicesControllerTests : IDisposable
     {
