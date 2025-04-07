@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NModbus;
 
-namespace Worktest.backend.Controllers
+namespace Worktest.backend.Controller
 {
     [Route("api/[controller]")]
     [ApiController]
