@@ -5,6 +5,9 @@ using NModbus;
 
 namespace Worktest.backend.Services
 {
+    /// <summary>
+    /// A service that handles Modbus communication tasks, such as reading and writing holding registers.
+    /// </summary>
     public class ModbusService
     {
         private readonly string _ipAddress = "127.0.0.1";  // Example IP
@@ -13,7 +16,12 @@ namespace Worktest.backend.Services
         // Timeout for TCP connections 
         private readonly int _timeout = 5000; // 5 seconds
 
-        // Read Holding Registers from Modbus slave
+        /// <summary>
+        /// Reads holding registers from a Modbus slave.
+        /// </summary>
+        /// <param name="startAddress">The starting address of the holding registers to read.</param>
+        /// <param name="count">The number of holding registers to read.</param>
+        /// <returns>A list of ushort values representing the holding registers read from the Modbus slave.</returns>
         public List<ushort> ReadHoldingRegisters(ushort startAddress, ushort count)
         {
             try
@@ -41,7 +49,12 @@ namespace Worktest.backend.Services
             }
         }
 
-        // Write Holding Registers to Modbus slave
+        /// <summary>
+        /// Writes values to holding registers in a Modbus slave.
+        /// </summary>
+        /// <param name="startAddress">The starting address of the holding registers to write to.</param>
+        /// <param name="values">An array of values to write to the holding registers.</param>
+        /// <returns>True if the write operation is successful; otherwise, false.</returns>
         public bool WriteHoldingRegisters(ushort startAddress, ushort[] values)
         {
             try
